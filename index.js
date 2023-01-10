@@ -1,16 +1,24 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import { userRouter } from './src/routes/user.js' 
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import path from 'path'
+import { donationsRouter } from './src/routes/donations/index.js'
+import {  campaignsRouter } from './src/routes/campaings/index.js'
+import { authMiddleware } from './src/middlewares/authMiddleware.js'
 
 const app = express()
 
 app.use(express.json())
 app.use(bodyParser.json())
 app.use(cors())
-app.use('/api/v1/user', userRouter)
+
+app.use('/api/v1/donations', authMiddleware, donationsRouter)
+app.use('/api/v1/campaigns', authMiddleware, campaignsRouter)
+app.use('/donations',(req,res)=>{
+     res.sendFile(path.resolve("./src/views/donations.html"))
+})
 
 dotenv.config()
 

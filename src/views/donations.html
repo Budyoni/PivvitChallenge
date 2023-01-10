@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form" onsubmit="submitForm(e)">
+        <label>Donor Name</label><br>
+        <input type="text" id="fname"><br><br>
+        <label>campaign Id</label><br><br>
+        <input type="text" id="campaign-id" name="lname"><br><br>
+        <label>amount</label><br><br>
+        <input type="number" id="lname"><br><br>
+        <input type="submit" value="Submit">
+    </form> 
+    <script>
+        
+        function submitForm(e) {
+            e.preventDefault()
+            fetch('/api/v1/donations/', {
+                method: 'post',
+                body: {
+                    donorName: document.getElementById('fname').value,
+                    campaignId: document.getElementById('campaign-id').value,
+                    amount: document.getElementById('fname').value
+                }
+            })
+        }
+        document.addEventListener('load', () => {
+            document.getElementById('form').onsubmit = submitForm
+        })
+    </script>
+</body>
+</html>

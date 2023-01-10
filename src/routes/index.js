@@ -10,4 +10,4 @@ router.get('/', (req, res) => {
 })
 
 
-export { router as userRouter}
+export { router as indexRouter }
